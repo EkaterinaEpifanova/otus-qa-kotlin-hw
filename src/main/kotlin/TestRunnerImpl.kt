@@ -1,9 +1,10 @@
 class TestRunnerImpl : TestRunner {
-
-    override fun runTest(steps: MetaSteps, test: () -> Unit) {
-        "BEFORE".log(steps::before)
+    private val beforeMethodName = "before"
+    private val afterMethodName = "after"
+    override fun <T : Any> runTest(steps: T, test: () -> Unit) {
+        "BEFORE".log { steps::class.members.first { it.name == beforeMethodName }.call(steps) as String }
         test()
-        "AFTER".log(steps::after)
+        "AFTER".log { steps::class.members.first { it.name == afterMethodName }.call(steps) as String }
     }
 }
 

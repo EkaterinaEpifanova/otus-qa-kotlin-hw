@@ -1,3 +1,3 @@
 interface TestRunner {
-    fun runTest(steps: MetaSteps, test: () -> Unit)
+    fun <T:Any> runTest(steps: T, test: () -> Unit)
 }
